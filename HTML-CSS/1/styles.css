@@ -32,6 +32,7 @@ p {
 }
 p {
   font-size: 14px;
+  margin-bottom: 35px;
   font-weight: 400;
   color: hsl(216, 15%, 48%);
 }
