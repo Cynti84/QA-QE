@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(207, 232, 253);
+}
+.container {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 25px;
+  background: linear-gradient(
+    35deg,
+    rgb(199, 227, 251),
+    rgb(243, 248, 252),
+    rgb(213, 232, 243)
+  );
+  box-shadow: -5px 5px 30px rgb(183, 197, 253), 5px -5px 30px rgb(203, 213, 235);
+  font-family: outfit;
+}
+.google {
+  padding: 15px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.google img {
+  width: 50px;
+  height: 50px;
+}
+.info {
+  margin-bottom: 20px;
+}
+.info h1,
+p {
+  text-align: center;
+}
+.info h1 {
+  font-weight: 400;
+}
+.info p {
+  color: hsl(216, 15%, 48%);
+}
+.social,
+.btn,
+.google {
+  display: flex;
+  justify-content: center;
+}
+.social {
+  margin-bottom: 40px;
+}
+.social img {
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+}
+.btn {
+  margin-bottom: 40px;
+}
+.btn button {
+  background-color: white;
+  height: 30px;
+  border-radius: 20px;
+  width: 150px;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(227, 231, 248, 0.5);
+  font-weight: 500;
+}
+.btn button:hover {
+  background-color: rgb(221, 221, 249);
+}
+@media only screen and (max-width: 750px) {
+  .container {
+    width: 60%;
+  }
+}
