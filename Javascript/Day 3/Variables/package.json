@@ -1,0 +1,19 @@
+{
+  "name": "variables",
+  "version": "1.0.0",
+  "main": "variables.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node variables.js",
+    "dev": "nodemon variables.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "nodemon": "^3.1.9"
+  }
+}
