@@ -64,11 +64,10 @@ nav {
 }
 
 main {
-  border: 1px solid green;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 80px;
+  gap: 50px;
 
   margin-top: 30px;
   margin-left: 15%;
@@ -76,10 +75,10 @@ main {
   height: auto;
 }
 .content {
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width: 50%;
 }
 .heading h1 {
   font-size: 50px;
@@ -90,8 +89,22 @@ main {
 .hero img {
   width: 350px;
   height: 400px;
-  border: 1px solid red;
 }
-.hero {
-  border: 1px solid blue;
+
+.logos {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 30px;
+}
+.logos img {
+  max-width: 100%;
+  width: 70px;
+  height: 20px;
+}
+.btn button {
+  background-color: black;
+  color: white;
+  padding: 10px 20px 10px 20px;
+  border-radius: 15px;
 }
