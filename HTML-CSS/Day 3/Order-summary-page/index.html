@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <img src="./images/double.png" alt="logo" />
+        </div>
+        <!--10%-->
+        <div class="left-links">
+          <ul class="left">
+            <li>Home</li>
+            <li>Shop</li>
+            <li>Contact</li>
+            <li>Help</li>
+          </ul>
+        </div>
+        <!--60%-->
+        <div class="right-links">
+          <ul class="right">
+            <li>Account <img src="" alt="" /></li>
+            <img src="./images/market.png" alt="" />
+            <li>3 Items</li>
+          </ul>
+        </div>
+        <!--30%-->
+        <div class="user">
+          <img src="./images/profile.png" class="profile" alt="" />
+        </div>
+      </nav>
+      <main>
+        <div class="accounts-container">
+          <div class="accounts-box">
+            <div class="toggle">
+              <p style="color: rgb(0, 162, 255)">Account</p>
+              <img src="./images/check.png" alt="" />
+              <p>Shipping</p>
+              <img src="./images/check.png" alt="" />
+              <p>Payment</p>
+            </div>
+            <h3>Account details</h3>
+            <div class="form-container">
+              <form action="#" method="POST" class="forms">
+                <label for="email" class="labels">Email Address</label>
+                <input type="email" id="email" class="inputs" />
+                <label for="password" class="labels">Password</label>
+                <input type="password" id="password" class="inputs" />
+                <div class="form-btns">
+                  <button class="register-button">Register for account</button>
+                  <button class="login-button">Login</button>
+                </div>
+              </form>
+            </div>
+            <div class="other-btns">
+              <button class="cancel-btn">Cancel order</button>
+              <button class="shipping-btn">Shipping details</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-summary">
+          <div class="order-summary-box">
+            <h3>Order Summary</h3>
+            <div class="image-headphones">
+              
+            </div>
+
+            <div class="item-details">
+              <div class="details">
+                <h3>Sony wireless headphones</h3>
+                <p>$320.45</p>
+              </div>
+              <div class="number">
+                <input
+                  type="number"
+                  id="num"
+                  name="num"
+                  value="1"
+                  min="0"
+                  max="50"
+                  step="1"
+                  style="text-align: center"
+                />
+              </div>
+            </div>
+            <div class="discount">
+              <label for="discount-code" class="discount-label"
+                >Gift Card / Discount code</label
+              >
+              <div class="enter-input">
+                <input type="number" id="discount-code" />
+                <button>Apply</button>
+              </div>
+            </div>
+            <div class="pricing">
+              <div class="amounts">
+                <p class="item">Sub total</p>
+                <p class="price">$316.55</p>
+              </div>
+              <div class="amounts">
+                <p class="item">Tax</p>
+                <p class="price">$3.45</p>
+              </div>
+              <div class="amounts">
+                <p class="item">Shipping</p>
+                <p class="price" style="color: rgb(3, 173, 85);">Free</p>
+              </div>
+              <div class="amounts">
+                <p class="item-total">Total</p>
+                <p class="price">$320.45</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
