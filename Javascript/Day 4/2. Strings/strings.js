@@ -64,18 +64,24 @@ console.log(sentence.substring(7, 11)) // stud - from 7 end at 11-1 ie (10)
 console.log(sentence.substr(7, 4)) // stud - from 7 index, return 4 characters
 
 let sentence1 = "Hellowz My name is Cee"
-console.log(sentence1.substr(2, 5)) //llowz
+console.log(sentence1.substr(2, 7)) //llowz M
 
 //9. trim - removes white spaces from both ends of a string
-let sent = '          Hi I am availabe'
+let sent = '    Hi I am availabe    '
 console.log(sent) //           Hi I am available
 console.log(sent.trim()) // Hi I am available
 //remove white spaces at the start only
 console.log(sent.trimStart()) // Hi I am available
-
-//
-let lname1 = "Jack"
-console.log(lname1.toLowerCase())
+// if there was any white space at the end, it won't be removed if you are using only trimStart()
+// to prove trimEnd/trimStart still exists:
+// log the original string with yellow highlighting
+console.log(chalk.yellow(`Original: [${sent}] `))
+//Trim spaces from both ends
+console.log(chalk.red(`Trimmed: [${sent.trim()}]`))
+//Trim only from the start
+console.log(chalk.yellow(`Trim Start: [${sent.trimStart()}]`))
+//Trim only at the end
+console.log(chalk.red(`Trim end: [${sent.trimEnd()}]`))
 
 
 

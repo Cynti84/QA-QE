@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon script.js"
-    
   },
   "keywords": [],
   "author": "",
@@ -14,6 +13,7 @@
   "description": "",
   "dependencies": {
     "chalk": "^5.4.1",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.9"
   }
 }
