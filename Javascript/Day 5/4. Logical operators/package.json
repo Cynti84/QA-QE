@@ -1,19 +1,18 @@
 {
-  "name": "3.-booleans",
+  "name": "4.-logical-operators",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon bool.js"
+    "dev": "nodemon script.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "chalk": "^5.4.1",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.9"
   }
 }

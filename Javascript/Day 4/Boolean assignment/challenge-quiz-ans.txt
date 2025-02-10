@@ -1,0 +1,22 @@
+Challenge Questions
+
+1. Password Authentication
+    It is important because it means that even if an attacker gains access to the database, they don't see the actual password but only their hashed versions. 
+    It has greater advantage over plain text as it makes it extremely difficult to reverse-engineer the original password hence enhancing security
+
+2. Multi-Factor Authentication (MFA)
+    It enhances security by requiring an extra verification step, beyond just a password, before completing a transaction.
+    It prevents attacks such as phishing, credential stuffing, and brute-force attempts
+
+3. Balance verification
+    It ensures that there are sufficient funds to cover the withdrawal. 
+    Skipping this step can lead to overdrafts, financial discrepancies, and potential losses for both user and institution
+
+4. Daily Transaction Limit
+    It caps the maximum amount that can be withdrawn in one day, reducing the potential loss from fraud or unauthorized access.
+    This limit helps prevent excessive withdrawals and minimizes financial exposure for both the user and the institution
+
+5. Improvement
+    To add fraud detection, I would implement anomaly detection algorithms that monitor and compare current transaction against a user's historical behavior.
+    I would also track data such as withdrawal frequency, transaction amount, time of day, geographic location, IP addresses and device info in order to flag abnormal
+    patterns that might indicate fraudulent activity.
