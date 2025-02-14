@@ -42,3 +42,14 @@ function myGrade(mark) {
 }
 console.log(`Your grade is: ${myGrade(78)}`)
 
+//Later we will learn ES6 syntax for conditions 
+// let functionName = condition ? executedThis1: (else) executedThis2
+const myGrade1 = (mark) => {
+  return mark>=100 && mark ? 'A' : //this is the else if 
+         mark >=70 ? 'B' : //this is the else if 
+         mark >=50 ? 'C' ://this is the else if 
+         mark >=30 ? 'D' : //this is the else if 
+         'Invalid input marks' //this is the else block 
+}
+console.log(myGrade1(100)) //invalid input marks
+console.log(myGrade1(64)) //invalid input marks 
