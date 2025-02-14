@@ -8,12 +8,11 @@
   </head>
   <body>
     <div class="calculator">
-      <p style="color: white;">calculator</p>
       <input type="text" id="display" disabled />
       <div class="buttons">
         <button class="btn" onclick="clearDisplay()">C</button>
-        <button class="btn" onclick="calculateModulus()">%</button>
-        <button class="btn" onclick="displayValue('*')">*</button>
+        <button class="btn" onclick="displayValue('x²')">x²</button>
+        <button class="btn" onclick="displayValue('%')">%</button>
         <button class="btn" onclick="displayValue('-')">-</button>
 
         <button class="btn" onclick="displayValue('7')">7</button>
@@ -24,19 +23,18 @@
         <button class="btn" onclick="displayValue('4')">4</button>
         <button class="btn" onclick="displayValue('5')">5</button>
         <button class="btn" onclick="displayValue('6')">6</button>
-        <button class="btn" onclick="calculateSquareRoot()">√</button>
+        <button class="btn" onclick="displayValue('*')">*</button>
+        
 
         <button class="btn" onclick="displayValue('1')">1</button>
         <button class="btn" onclick="displayValue('2')">2</button>
         <button class="btn" onclick="displayValue('3')">3</button>
-        <button class="btn" onclick="displayValue('/')">/</button>
-
+        <button class="btn" onclick="displayValue('/')">/</button>        
+        
         <button class="btn" onclick="displayValue('.')">.</button>
-        <button class="btn" onclick="displayValue('0')">0</button>
-        <button class="btn" onclick="calculateSquare()">x²</button>
-        <button class="btn" onclick="calculateResult()" id="equalSign">
-          =
-        </button>
+        <button class="btn" onclick="displayValue('0')">0</button>        
+        <button class="btn" onclick="displayValue('√')">√</button>
+        <button class="btn" onclick="calculateResult()">=</button>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.10.0/math.min.js"></script>

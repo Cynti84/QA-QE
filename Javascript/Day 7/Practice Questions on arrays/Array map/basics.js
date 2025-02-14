@@ -75,9 +75,10 @@ const users = [
 ]; 
 
 //extracting the posts as an array
-const userPosts = users.map((user) => (
-   user.posts
-))
+const userPosts = users
+  .map((user) => (user.posts))
+  .flat()
+
 console.log(userPosts)
 
 //extracting the timestamps as an array
@@ -85,5 +86,5 @@ const timeStamps = userPosts
   .map((time) => time.timestamp)
     
 
-console.log(timeStamps)
+//console.log(timeStamps)
 

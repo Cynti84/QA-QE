@@ -14,6 +14,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
+    padding-top: 0px;
 }
 
 #display {
@@ -48,4 +49,7 @@ body {
 
 .btn:hover {
     background: #555;
+}
+#equalSign{
+    background-color: orange;
 }
