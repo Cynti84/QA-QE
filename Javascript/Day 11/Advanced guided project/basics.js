@@ -133,6 +133,8 @@ const cartClose = document.querySelector("#cart-close");
 cartIcon.addEventListener("click", () => cart.classList.add("active"));
 cartClose.addEventListener("click", () => cart.classList.remove("active"));
 
+//this is the shopping cart function. it contains all the functionalities to add items into the cart,
+// remove them, update their number, etc
 const ShoppingCart = () => {
   const addCartButtons = document.querySelectorAll(".add-cart");
   addCartButtons.forEach((button) => {
@@ -150,7 +152,7 @@ const ShoppingCart = () => {
     const productTitle = productBox.querySelector("h3").textContent;
     const productPrice = productBox.querySelector(".price").textContent;
 
-    //to avoid product duplication
+    // this functionality helps to avoid product duplication
     const cartItems = cartContent.querySelectorAll(".cart-product-title");
     for (let item of cartItems) {
       if (item.textContent === productTitle) {
@@ -184,6 +186,7 @@ const ShoppingCart = () => {
       updateTotalPrice();
     });
 
+    //this is the functionality for incrementing and decrementing the no of books in the shopping cart
     cartBox
       .querySelector(".cart-quantity")
       .addEventListener("click", (event) => {
@@ -229,6 +232,7 @@ const updateTotalPrice = () => {
   totalPriceElement.textContent = `$${total.toFixed(2)}`;
 };
 
+//this is the functionality to update the cart count badge that appears in the cart icon
 let cartItemCount = 0;
 const updateCartCount = (change) => {
   const cartItemCountBadge = document.querySelector(".cart-item-count");
@@ -242,11 +246,12 @@ const updateCartCount = (change) => {
   }
 };
 
+//this is the functionality for the 'buy now' button
 const buyNowButton = document.querySelector(".btn-buy");
 buyNowButton.addEventListener("click", () => {
   const cartBoxes = document.querySelectorAll(".cart-box");
   if (cartBoxes.length === 0) {
-    alert("Your cart is empty. Please add items to your cart before buying");
+    alert("Your cart is empty. Please add items to your cart before buying"); //if cart is empty, alert them when they press buy now button
     return;
   }
   cartBoxes.forEach((cartBox) => cartBox.remove());
