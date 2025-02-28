@@ -1,5 +1,4 @@
 let books = []; //array to store the books
-//let cart = [] //array to store the cart items
 
 //Asynchronous function to Fetch data from json server only once and store them
 async function fetchData() {
@@ -103,7 +102,7 @@ function sortBooks(criteria, order) {
 
   sortedBooks.sort((a, b) => {
     if (order === "asc") {
-      return a[criteria - b[criteria]];
+      return a[criteria] - b[criteria];
     } else {
       return b[criteria] - a[criteria];
     }
