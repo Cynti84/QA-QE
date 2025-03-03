@@ -27,10 +27,11 @@ export function calculateSpareScore(rolls: string[]): number{
 export function calculateStrikeScore(rolls: string[]): number{
     //rolls = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
     let sum = 0
-    for (let i = 0; i = rolls.length-2; i++){
+    for (let i = 0; i < 10; i++){
         if (rolls[i] === "X") {
-            sum += 10 + rollsValue(rolls[i + 1]) + rollsValue(rolls[i + 2])
-           
+           // let nextroll = rolls[i + 1] ? rollsValue(rolls[i + 1]) : 0
+           // let nextestRoll = rolls[i+2] ? rollsValue(rolls[i + 2]) : 0
+            sum += 10 + rollsValue(rolls[i + 1]) + rollsValue(rolls[i + 2]);           
         }
     }
     return sum;

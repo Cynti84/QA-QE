@@ -18,7 +18,7 @@ test("it should calculate a game with spares correctly", () => {
 })
 
 //strike score calculator
-test("it should calculate a game with spares correctly", () => {
+test("it should calculate a game with strikes correctly", () => {
     const rolls = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"];
     expect(calculateStrikeScore(rolls)).toBe(300)
 
