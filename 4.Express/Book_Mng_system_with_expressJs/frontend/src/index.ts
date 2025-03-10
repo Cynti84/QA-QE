@@ -1,17 +1,15 @@
 import { Book, BooksArray } from "./types.js";
 
 let books: BooksArray = []; //array to store the books
+
+const searchBook = document.getElementById("searchInput") as HTMLInputElement;
 const genreFilterElement = document.getElementById(
   "genreFilter"
 ) as HTMLSelectElement | null;
-
 const sortYear = document.getElementById(
   "sortYear"
 ) as HTMLButtonElement | null;
-
 const sortPages = document.getElementById("sortPages");
-
-const searchBook = document.getElementById("searchInput") as HTMLInputElement;
 
 //Asynchronous function to Fetch data from events
 async function fetchData(params: Record<string, string> = {}) {
@@ -39,6 +37,7 @@ async function fetchData(params: Record<string, string> = {}) {
   }
 }
 
+// Load books from API and display them on the page
 async function loadBooks() {
   const response = await fetchData(); //fetch data from events.ts
   if (response && response.books) {
@@ -134,6 +133,7 @@ function closeModal() {
   bookModal.style.display = "none";
 }
 
+// Toggle sorting by year between ascending and descending
 if (sortYear) {
   sortYear.addEventListener("click", function () {
     // Toggle between ascending and descending
@@ -152,7 +152,7 @@ if (sortYear) {
   });
 }
 
-// Add similar functionality for sortPages
+// Toggle sorting by pages between ascending and descending
 if (sortPages) {
   sortPages.addEventListener("click", function () {
     const currentSort = new URLSearchParams(window.location.search).get("sort");
@@ -163,19 +163,18 @@ if (sortPages) {
     } else {
       newSort = "pages-asc";
     }
-    
-    updateQueryParam('sort', newSort);
+
+    updateQueryParam("sort", newSort);
     filterAndSortBooks();
   });
 }
-
 
 // Helper function to update query parameters
 function updateQueryParam(key: string, value: string) {
   const url = new URL(window.location.href);
   url.searchParams.set(key, value);
   // Update the URL without refreshing the page
-  window.history.pushState({}, '', url);
+  window.history.pushState({}, "", url);
 }
 
 //this is a function to filter and sort books
@@ -236,7 +235,7 @@ function updateSortButtonLabels(sortParam: string) {
   }
 }
 
-// Event listeners for search
+// Set up search input event listeners for real-time filtering
 if (searchBook) {
   // Add input event for real-time filtering as user types
   searchBook.addEventListener("input", function () {
@@ -263,17 +262,19 @@ if (!genreFilterElement) {
   });
 }
 
-// implementing the shopping cart
+// Get shopping cart UI elements
 const cartIcon = document.querySelector("#cart-icon") as HTMLElement | null;
 const cart = document.querySelector(".cart") as HTMLElement | null;
 const cartClose = document.querySelector("#cart-close") as HTMLElement | null;
 
+// Setup cart open/close functionality
 cartIcon?.addEventListener("click", () => cart?.classList.add("active"));
 cartClose?.addEventListener("click", () => cart?.classList.remove("active"));
 
 //this is the shopping cart function. it contains all the functionalities to add items into the cart,
 // remove them, update their number, etc
 const ShoppingCart = () => {
+  // Add click event to all "Add to Cart" buttons
   const addCartButtons: NodeListOf<HTMLButtonElement> =
     document.querySelectorAll(".add-cart");
   addCartButtons.forEach((button) => {
@@ -340,7 +341,7 @@ const ShoppingCart = () => {
     `;
     cartContent?.appendChild(cartBox);
 
-    //to be able to remove item from the cart
+    // Setup remove item functionality
     cartBox.querySelector(".cart-remove")?.addEventListener("click", () => {
       cartBox.remove();
       updateCartCount(-1);
@@ -384,6 +385,7 @@ const updateTotalPrice = () => {
   ) as NodeListOf<HTMLElement>;
   let total = 0;
 
+  // Calculate total by summing price × quantity for all items
   cartBoxes.forEach((cartBox) => {
     const priceElement =
       (cartBox.querySelector(".cart-price") as HTMLElement) || null;
@@ -417,7 +419,7 @@ const updateCartCount = (change: number) => {
   }
 };
 
-//this is the functionality for the 'buy now' button
+// Handle "Buy Now" button click to complete purchase
 const buyNowButton =
   (document.querySelector(".btn-buy") as HTMLButtonElement) || null;
 if (buyNowButton) {
@@ -453,7 +455,7 @@ window.addEventListener("click", (event) => {
   }
 });
 
-// Initialize the app
+// Initialize the app when DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   loadBooks();
 });
