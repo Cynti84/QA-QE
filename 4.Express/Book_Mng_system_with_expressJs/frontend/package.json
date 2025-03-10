@@ -1,0 +1,26 @@
+{
+  "name": "ecommerce_ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --watch",
+    "serve": "vite",
+    "start:dev": "nodemon src/events.ts",
+    "build": "tsc --outDir dist",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
+  }
+}

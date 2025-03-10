@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Book Manager</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Books Catalog</h1>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by title or author..."
+      />
+      <select name="" id="genreFilter">
+        <option value="">All Genres</option>
+        <option value="Fiction">Fiction</option>
+        <option value="Dystopian">Dystopian</option>
+        <option value="Adventure">Adventure</option>
+        <option value="Historical Fiction">Historical Fiction</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Romance">Romance</option>
+      </select>
+      <button data-order="asc" id="sortYear">Sort by Year</button>
+      <button data-order="asc" id="sortPages">Sort by Pages</button>
+      <!-- Cart Button -->
+      <div id="cart-icon">
+        <i class="ri-shopping-bag-line"></i>
+        <span class="cart-item-count"></span>
+      </div>
+    </header>
+
+    <!--book modal-->
+    <main>
+      <div id="bookContainer" class="book-grid"></div>
+      <div id="bookModal" class="modal">
+        <div class="modal-content">
+          <!-- <span class="close" onclick=closeModal()>&times;</span> -->
+          <h2 id="modalTitle"></h2>
+          <img id="modalImage" src="" alt="Book Cover" /><br /><br />
+          <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+          <br />
+          <p><strong>Genre:</strong> <span id="modalGenre"></span></p>
+          <br />
+          <p><strong>Year:</strong> <span id="modalYear"></span></p>
+          <br />
+          <p><strong>Pages:</strong> <span id="modalPages"></span></p>
+          <br />
+          <p>
+            <strong>Description:</strong> <span id="modalDescription"></span>
+          </p>
+          <br />
+        </div>
+      </div>
+
+      <!--cart window-->
+      <div class="cart" id="cartWindow">
+        <h2 class="cart-title">Your Cart</h2>
+        <div class="cart-content"></div>
+        <div class="total">
+          <div class="total-title">Total</div>
+          <div class="total-price">$0</div>
+        </div>
+        <button class="btn-buy">Buy Now</button>
+        <i class="ri-close-line" id="cart-close"></i>
+      </div>
+      <script type= "module" src="./dist/index.js"></script>
+    </main>
+  </body>
+</html>
