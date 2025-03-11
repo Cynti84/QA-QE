@@ -8,47 +8,47 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 let books = []; //array to store the books
+const searchBook = document.getElementById("searchInput");
 const genreFilterElement = document.getElementById("genreFilter");
 const sortYear = document.getElementById("sortYear");
 const sortPages = document.getElementById("sortPages");
-const searchBook = document.getElementById("searchInput");
 //Asynchronous function to Fetch data from events
 function fetchData() {
     return __awaiter(this, arguments, void 0, function* (params = {}) {
         try {
             const queryParams = new URLSearchParams(params).toString();
-            const response = yield fetch(`http://localhost:3000/api/books${queryParams ? `?${queryParams}` : ""}`, {
+            const response = yield fetch(`http://localhost:3000/api/v1/books${queryParams ? `?${queryParams}` : ""}`, {
                 method: "GET",
-                headers: {
-                    "Content-type": "application/json",
-                },
+                headers: { "Content-type": "application/json" },
             });
-            //if the response is not okay, throw the error to the catch block
             if (!response.ok) {
                 throw new Error(`HTTP Error! Status: ${response.status}`);
             }
             const data = yield response.json();
-            console.log("Fetched data 📚:", data);
+            console.log("Fetched data structure:", JSON.stringify(data, null, 2)); // Log the response structure
             return data;
         }
         catch (error) {
-            console.log("Sorry, cannot fetch data!🥱", error);
-            return []; // Return empty array in case of error
+            console.error("Error fetching data:", error);
+            return [];
         }
     });
 }
+// Load books from API and display them on the page
 function loadBooks() {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetchData(); //fetch data from events.ts
-        if (response && response.books) {
+        const response = yield fetchData();
+        if (Array.isArray(response)) {
+            books = response; // Directly assign the array
+        }
+        else if (response && response.books) {
             books = response.books;
-            console.log("Data fetched successfully 🥳🥳", books);
-            displayBooks(books);
         }
         else {
             console.error("Invalid response format:", response);
-            displayBooks([]);
+            books = [];
         }
+        displayBooks(books);
     });
 }
 // this is a function to display the books dynamically
@@ -124,6 +124,7 @@ function closeModal() {
     }
     bookModal.style.display = "none";
 }
+// Toggle sorting by year between ascending and descending
 if (sortYear) {
     sortYear.addEventListener("click", function () {
         // Toggle between ascending and descending
@@ -140,7 +141,7 @@ if (sortYear) {
         filterAndSortBooks();
     });
 }
-// Add similar functionality for sortPages
+// Toggle sorting by pages between ascending and descending
 if (sortPages) {
     sortPages.addEventListener("click", function () {
         const currentSort = new URLSearchParams(window.location.search).get("sort");
@@ -151,7 +152,7 @@ if (sortPages) {
         else {
             newSort = "pages-asc";
         }
-        updateQueryParam('sort', newSort);
+        updateQueryParam("sort", newSort);
         filterAndSortBooks();
     });
 }
@@ -160,7 +161,7 @@ function updateQueryParam(key, value) {
     const url = new URL(window.location.href);
     url.searchParams.set(key, value);
     // Update the URL without refreshing the page
-    window.history.pushState({}, '', url);
+    window.history.pushState({}, "", url);
 }
 //this is a function to filter and sort books
 function filterAndSortBooks() {
@@ -221,7 +222,7 @@ function updateSortButtonLabels(sortParam) {
         }
     }
 }
-// Event listeners for search
+// Set up search input event listeners for real-time filtering
 if (searchBook) {
     // Add input event for real-time filtering as user types
     searchBook.addEventListener("input", function () {
@@ -246,50 +247,17 @@ else {
         filterAndSortBooks();
     });
 }
-//this is a function to sort the books dynamically
-// function sortBooks(criteria: keyof Book, order: "asc" | "desc") {
-//   let sortedBooks: Book[] = [...books];
-//   sortedBooks.sort((a, b) => {
-//     if (order === "asc") {
-//       return (a[criteria] as number) - (b[criteria] as number);
-//     } else {
-//       return (b[criteria] as number) - (a[criteria] as number);
-//     }
-//   });
-//   displayBooks(sortedBooks);
-// }
-//event listener for sorting buttons
-//sorting by year
-// if (!sortYear) {
-//   console.log("Error sorting by year");
-// } else {
-//   sortYear.addEventListener("click", function () {
-//     const currentOrder =
-//       this.getAttribute("data-order") === "asc" ? "desc" : "asc";
-//     this.setAttribute("data-order", currentOrder);
-//     sortBooks("year", currentOrder);
-//   });
-// }
-//sorting by pages
-// if (!sortPages) {
-//   console.log("Error sorting by pages");
-// } else {
-//   sortPages.addEventListener("click", function () {
-//     const currentOrder =
-//       this.getAttribute("data-order") === "asc" ? "desc" : "asc";
-//     this.setAttribute("data-order", currentOrder);
-//     sortBooks("pages", currentOrder);
-//   });
-// }
-// implementing the shopping cart
+// Get shopping cart UI elements
 const cartIcon = document.querySelector("#cart-icon");
 const cart = document.querySelector(".cart");
 const cartClose = document.querySelector("#cart-close");
+// Setup cart open/close functionality
 cartIcon === null || cartIcon === void 0 ? void 0 : cartIcon.addEventListener("click", () => cart === null || cart === void 0 ? void 0 : cart.classList.add("active"));
 cartClose === null || cartClose === void 0 ? void 0 : cartClose.addEventListener("click", () => cart === null || cart === void 0 ? void 0 : cart.classList.remove("active"));
 //this is the shopping cart function. it contains all the functionalities to add items into the cart,
 // remove them, update their number, etc
 const ShoppingCart = () => {
+    // Add click event to all "Add to Cart" buttons
     const addCartButtons = document.querySelectorAll(".add-cart");
     addCartButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
@@ -340,7 +308,7 @@ const ShoppingCart = () => {
           <i class="ri-delete-bin-line cart-remove"></i>        
     `;
         cartContent === null || cartContent === void 0 ? void 0 : cartContent.appendChild(cartBox);
-        //to be able to remove item from the cart
+        // Setup remove item functionality
         (_c = cartBox.querySelector(".cart-remove")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", () => {
             cartBox.remove();
             updateCartCount(-1);
@@ -377,6 +345,7 @@ const updateTotalPrice = () => {
         return;
     const cartBoxes = document.querySelectorAll(".cart-box");
     let total = 0;
+    // Calculate total by summing price × quantity for all items
     cartBoxes.forEach((cartBox) => {
         var _a, _b;
         const priceElement = cartBox.querySelector(".cart-price") || null;
@@ -405,7 +374,7 @@ const updateCartCount = (change) => {
         cartItemCountBadge.textContent = "";
     }
 };
-//this is the functionality for the 'buy now' button
+// Handle "Buy Now" button click to complete purchase
 const buyNowButton = document.querySelector(".btn-buy") || null;
 if (buyNowButton) {
     buyNowButton.addEventListener("click", () => {
@@ -436,7 +405,7 @@ window.addEventListener("click", (event) => {
         closeModal();
     }
 });
-// Initialize the app
+// Initialize the app when DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
     loadBooks();
 });

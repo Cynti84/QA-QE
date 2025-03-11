@@ -16,38 +16,38 @@ async function fetchData(params: Record<string, string> = {}) {
   try {
     const queryParams = new URLSearchParams(params).toString();
     const response = await fetch(
-      `http://localhost:3000/api/books${queryParams ? `?${queryParams}` : ""}`,
+      `http://localhost:3000/api/v1/books${
+        queryParams ? `?${queryParams}` : ""
+      }`,
       {
         method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
+        headers: { "Content-type": "application/json" },
       }
     );
-    //if the response is not okay, throw the error to the catch block
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
     const data = await response.json();
-    console.log("Fetched data 📚:", data);
+    console.log("Fetched data structure:", JSON.stringify(data, null, 2)); // Log the response structure
     return data;
   } catch (error) {
-    console.log("Sorry, cannot fetch data!🥱", error);
-    return []; // Return empty array in case of error
+    console.error("Error fetching data:", error);
+    return [];
   }
 }
 
 // Load books from API and display them on the page
 async function loadBooks() {
-  const response = await fetchData(); //fetch data from events.ts
-  if (response && response.books) {
+  const response = await fetchData();
+  if (Array.isArray(response)) {
+    books = response; // Directly assign the array
+  } else if (response && response.books) {
     books = response.books;
-    console.log("Data fetched successfully 🥳🥳", books);
-    displayBooks(books);
   } else {
     console.error("Invalid response format:", response);
-    displayBooks([]);
+    books = [];
   }
+  displayBooks(books);
 }
 // this is a function to display the books dynamically
 function displayBooks(booksToShow: BooksArray) {
