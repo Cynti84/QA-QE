@@ -108,26 +108,25 @@ app.post("/api/v1/books", async (req: Request, res: Response) => {
 
 app.put("/api/v1/books/:id", async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id;
     const { title, author, genre } = req.body;
 
     // Check if the book already exists
-    const bookCheck = await pool.query(
-      "SELECT id FROM books WHERE title = $1 AND author = $2",
-      [title, author]
-    );
+    const bookCheck = await pool.query("SELECT id FROM books WHERE id = $1", [
+      id,
+    ]);
 
-    if (bookCheck.rows.length > 0) {
+    if (bookCheck.rows.length === 0) {
       res.status(400).json({
-        message: "Book already exists",
+        message: "Book does not exist",
       });
       return;
     }
 
     // Insert the book
     const bookResult = await pool.query(
-      "UPDATE books set title=$1, author=$2, genre=$3 RETURNING *",
-      [title, author, genre]
+      "UPDATE books set title=$1, author=$2, genre=$3 WHERE id = $4 RETURNING *",
+      [title, author, genre, id]
     );
 
     res.status(201).json({
@@ -146,10 +145,9 @@ app.patch("/api/v1/books/:id", async (req: Request, res: Response) => {
     const { title, author, genre } = req.body;
 
     // Check if the book already exists
-    const bookCheck = await pool.query(
-      "SELECT id FROM books WHERE title = $1 AND author = $2",
-      [title, author]
-    );
+    const bookCheck = await pool.query("SELECT id FROM books WHERE id = $1", [
+      id,
+    ]);
 
     if (bookCheck.rows.length > 0) {
       res.status(400).json({
@@ -160,12 +158,12 @@ app.patch("/api/v1/books/:id", async (req: Request, res: Response) => {
 
     // Insert the book
     const bookResult = await pool.query(
-      "UPDATE books set title=$1, author=$2, genre=$3 RETURNING *",
-      [title, author, genre]
+      "UPDATE books set title=$1, author=$2, genre=$3 WHERE id = $4 RETURNING *",
+      [title, author, genre, id]
     );
 
     res.status(201).json({
-      message: "Book successfully added",
+      message: "Book successfully updated",
       book: bookResult.rows[0],
     });
   } catch (error) {
