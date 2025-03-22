@@ -1,0 +1,14 @@
+<h2>Home works! This comes from the home component😆</h2>
+
+<p>{{message}}</p>
+<p>{{message2}}</p>
+<p>Addition of numbers(2+2): {{2+2}}</p>
+
+
+
+<h2 ngIf ="homes.length > 0">Available homes</h2>
+<ul ngIf ="homes.length > 0">
+<li ngFor = "let homes of homes">{{homes}}</li>
+</ul>
+<button onclick="addHome()" >Available homes</button>
+<button onclick="clearHome()">Clear homes</button>

@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  max-width: 500px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  width: 100%;
+}
+
+.input-field {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.btn {
+  background-color: #5A2FA5;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background-color: #5A2FA5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+table th {
+  background-color: #5A2FA5;
+  color: white;
+}
+
+#task{
+    border-right: none;
+}
+#delete{
+border-left: none;
+color: red;
+text-align: center;
+font-family: tahoma;
+cursor: pointer;
+
+}
+#delete:hover{
+  color: darkred;
+  transition: 0.5s ease;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.striped tr:hover {
+  background-color: #ddd;
+  transition: 0.3s;
+}
+.done{
+    text-decoration: line-through;
+}

@@ -15,15 +15,7 @@ const sortPages = document.getElementById("sortPages");
 async function fetchData(params: Record<string, string> = {}) {
   try {
     const queryParams = new URLSearchParams(params).toString();
-    const response = await fetch(
-      `http://localhost:3000/api/v1/books${
-        queryParams ? `?${queryParams}` : ""
-      }`,
-      {
-        method: "GET",
-        headers: { "Content-type": "application/json" },
-      }
-    );
+    const response = await fetch(`http://localhost:3000/api/v1/books ${queryParams ? `?${queryParams}` : ""}`,);
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
@@ -60,12 +52,13 @@ function displayBooks(booksToShow: BooksArray) {
     bookContainer.innerHTML = "<p>No books found matching your criteria.</p>";
     return;
   }
+  console.log("Displaying the books😊")
 
   booksToShow.forEach((book: Book) => {
     const bookCard: HTMLDivElement = document.createElement("div");
     bookCard.classList.add("book-card");
     bookCard.innerHTML = `
-    <img src="${book.image}" alt="${book.title}" class="book-cover">
+    <img src="${book.image_url}" alt="${book.title}" class="book-cover">
             <h3>${book.title}</h3>
             <p><strong>Year:</strong> ${book.year}</p>
             <p><strong>Pages:</strong> ${book.pages}</p>
@@ -116,7 +109,7 @@ function openModal(book: Book) {
   modalPages.textContent = book.pages.toString(); // Convert number to string
   modalDescription.textContent =
     book.description || "No description available.";
-  modalImage.src = book.image.toString(); // Convert URL to string
+  modalImage.src = book.image_url.toString(); // Convert URL to string
 
   bookModal.style.display = "block";
 }
@@ -214,6 +207,7 @@ async function filterAndSortBooks(): Promise<void> {
 
 // Function to update the sort button labels based on current sort
 function updateSortButtonLabels(sortParam: string) {
+  console.log("Updating sort button labels with sort value: ", sortParam);
   if (sortYear) {
     if (sortParam === "year-asc") {
       sortYear.textContent = "Sort by Year ↑";

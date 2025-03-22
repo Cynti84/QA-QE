@@ -41,17 +41,17 @@ const books = JSON.parse(booksData).books;
 // API endpoint to get books with optional filtering and sorting
 
 //getting all books
-app.get("/api/v1/books", async (req: Request, res: Response) => {
-  try {
-    const result = await pool.query(
-      "SELECT * FROM public.books ORDER BY id ASC "
-    );
-    res.status(200).json(result.rows);
-  } catch (error) {
-    console.error("Error getting books:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+// app.get("/api/v1/books", async (req: Request, res: Response) => {
+//   try {
+//     const result = await pool.query(
+//       "SELECT * FROM public.books ORDER BY id ASC "
+//     );
+//     res.status(200).json(result.rows);
+//   } catch (error) {
+//     console.error("Error getting books:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
 //get Book by Id
 app.get("/api/v1/books/:id", async (req: Request, res: Response) => {
@@ -106,6 +106,7 @@ app.post("/api/v1/books", async (req: Request, res: Response) => {
   }
 });
 
+//change all details in a book
 app.put("/api/v1/books/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
@@ -139,6 +140,7 @@ app.put("/api/v1/books/:id", async (req: Request, res: Response) => {
   }
 });
 
+//change a detail in a book (updating a book)
 app.patch("/api/v1/books/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -149,12 +151,12 @@ app.patch("/api/v1/books/:id", async (req: Request, res: Response) => {
       id,
     ]);
 
-    if (bookCheck.rows.length > 0) {
-      res.status(400).json({
-        message: "Book already exists",
-      });
-      return;
-    }
+    // if (bookCheck.rows.length > 0) {
+    //   res.status(400).json({
+    //     message: "Book already exists",
+    //   });
+    //   return;
+    // }
 
     // Insert the book
     const bookResult = await pool.query(
@@ -172,110 +174,173 @@ app.patch("/api/v1/books/:id", async (req: Request, res: Response) => {
   }
 });
 
-//Put API
-// app.put("/api/v1/books/:id", async (req: Request, res: Response) => {
-//   try {
-//     const { id } = req.params;
-//     const { title, author, genre } = req.body;
+// delete a book
+app.delete("/api/v1/books/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      "SELECT * FROM public.books WHERE id = $1",
+      [id]
+    );
+    if (result.rows.length === 0) {
+      res.status(400).json({ message: "Book not found" });
+      return;
+    }
 
-//     // Check if the book exists
-//     const checkBook = await pool.query("SELECT * FROM books WHERE id = $1", [
-//       id,
-//     ]);
-//     if (checkBook.rows.length === 0) {
-//       return res.status(404).json({ message: "Book not found" });
-//     }
+    const resultDelete = await pool.query(
+      "DELETE FROM public.books WHERE id=$1",
+      [id]
+    );
 
-//     // Update the book
-//     const result = await pool.query(
-//       "UPDATE books SET title=$1, author=$2, genre=$3, updated_at=NOW() WHERE id=$4 RETURNING *",
-//       [title, author, genre, id]
-//     );
+    res.status(400).json({ message: "Book deleted" });
+  } catch (error) {
+    console.error("Error getting book by id:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
-//     res.json({ message: "Book updated successfully", book: result.rows[0] });
-//   } catch (error) {
-//     console.error("Error updating book:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
+//get all users
+app.get("/api/v1/users", async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM public.users ORDER BY id ASC "
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error the users:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
-//patch API
-// app.patch("/api/v1/books/:id", async (req: Request, res: Response) => {
-//   try {
-//     const { id } = req.params;
-//     const { title, author, genre } = req.body;
+//get one user by id
+app.get("/api/v1/users/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      "SELECT * FROM public.users WHERE id = $1",
+      [id]
+    );
+    if (result.rows.length === 0) {
+      res.status(400).json({ message: "User not found" });
+      return;
+    }
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error getting user by id:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
-//     // Build dynamic update query
-//     let updateFields = [];
-//     let values = [];
-//     let counter = 1;
+//get the user roles
+app.get('/api/v1/user_roles', async (req: Request, res: Response) => {
+  try {
+    const roles = await pool.query("SELECT * FROM user_roles")
+    res.status(200).json({roles: roles.rows})
+  } catch (error) {
+    console.error("Error fetching roles", error)
+    res.status(500).json({ message: "Internal server error" });
+    
+  }
+})
 
-//     if (title) {
-//       updateFields.push(`title = $${counter++}`);
-//       values.push(title);
-//     }
-//     if (author) {
-//       updateFields.push(`author = $${counter++}`);
-//       values.push(author);
-//     }
-//     if (genre) {
-//       updateFields.push(`genre = $${counter++}`);
-//       values.push(genre);
-//     }
+//posting / adding a user
+app.post("/api/v1/users", async (req: Request, res: Response) => {
+  try {
+    const { name, email, password, role_id } = req.body;
 
-//     if (updateFields.length === 0) {
-//       return res.status(400).json({ message: "No fields to update" });
-//     }
+    // Check if the user already exists
+    const userCheck = await pool.query(
+      "SELECT role_id FROM user_roles WHERE role_id = $1",
+      [role_id]
+    );
 
-//     values.push(id); // Add id as last value
+    if (userCheck.rows.length === 0) {
+      res.status(400).json({
+        message: "User does not exist",
+      });
+      return;
+    }
 
-//     const updateBook = await pool.query(
-//       `UPDATE books SET ${updateFields.join(
-//         ", "
-//       )} WHERE id = $${counter} RETURNING *`,
-//       values
-//     );
+    // Insert the user
+    const userResult = await pool.query(
+      "INSERT INTO users (name, email, password, role_id) VALUES ($1, $2, $3, $4) RETURNING *",
+      [name, email, password, role_id]
+    );
 
-//     if (updateBook.rowCount === 0) {
-//       return res.status(404).json({ message: "Book not found" });
-//     }
+    res.status(201).json({
+      message: "User successfully added",
+      book: userResult.rows[0],
+    });
+  } catch (error) {
+    console.error("Error adding a user:", error);
+    res.status(500).json({ message: "Internal server error 😫" });
+  }
+});
 
-//     res.status(200).json({
-//       message: "Book updated successfully",
-//       book: updateBook.rows[0],
-//     });
-//   } catch (error) {
-//     console.error("Error updating book:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
+//updating a user
+app.patch("/api/v1/users/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { name, email, password, role_id } = req.body;
 
-//Delete API
-// app.delete("/api/v1/books/:id", async (req: Request, res: Response) => {
-//   try {
-//     const { id } = req.params;
+    // Check if the user already exists
+    const userCheck = await pool.query("SELECT id FROM users WHERE id = $1", [
+      id,
+    ]);
+    if (userCheck.rows.length === 0) {
+       res.status(404).json({ message: "User not found" });
+       return;
+    }
+    
+    // update the user
+    const userResult = await pool.query(
+      "UPDATE users set name=$1, email=$2, password=$3, role_id=$4 WHERE id = $5 RETURNING *",
+      [name, email, password, role_id, id]
+    );
 
-//     const deleteBook = await pool.query(
-//       "DELETE FROM books WHERE id = $1 RETURNING *",
-//       [id]
-//     );
+    res.status(201).json({
+      message: "User successfully updated",
+      user: userResult.rows[0],
+    });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
-//     if (deleteBook.rowCount === 0) {
-//       return res.status(404).json({ message: "Book not found" });
-//     }
+//deleting a user
+app.delete("/api/v1/users/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      "SELECT * FROM public.users WHERE id = $1",
+      [id]
+    );
+    if (result.rows.length === 0) {
+      res.status(400).json({ message: "User not found" });
+      return;
+    }
 
-//     res.status(200).json({
-//       message: "Book deleted successfully",
-//       book: deleteBook.rows[0],
-//     });
-//   } catch (error) {
-//     console.error("Error deleting book:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
+    const resultDelete = await pool.query(
+      "DELETE FROM public.users WHERE id=$1",
+      [id]
+    );
+
+    res.status(400).json({ message: "User deleted" });
+  } catch (error) {
+    console.error("Error getting user by id:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+
+
+
+
 
 //get all books with filtering and sorting
-app.get("/api/books", (req: Request, res: Response) => {
+app.get("/api/v1/books", (req: Request, res: Response) => {
   try {
     // Extract query parameters for filtering and sorting
     const { search, genre, year, sort } = req.query;
@@ -333,6 +398,7 @@ app.get("/api/books", (req: Request, res: Response) => {
 // WARNING: This is a duplicate route that will never be reached
 // The first matching route handler will be used
 app.get("/api/books", (req, res) => {
+  console.log("debugging code");
   res.json(books);
 });
 

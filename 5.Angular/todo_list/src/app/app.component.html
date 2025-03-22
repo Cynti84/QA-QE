@@ -1,0 +1,40 @@
+<main>
+  <h1 style="text-align: center">Todo List</h1>
+  <div class="container">
+    <div class="row">
+      <div class="column">
+        <div class="input-field">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter new todo"
+            [(ngModel)]="newTodo"
+          />
+          <button class="btn" type="button" (click)="saveTodo()">
+            Add Todo
+          </button>
+        </div>
+
+        <table class="striped">
+          <tr *ngFor="let todo of todos; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td
+              class="{{ todo.isCompleted ? 'done' : '' }}"
+              id="task"
+              (click)="done(i)"
+            >
+              {{ todo.name }}
+            </td>
+            <td
+              
+              id="delete"
+              (click)="remove(i)"
+            >
+              Delete
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>

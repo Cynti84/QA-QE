@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "pg-pool": "^3.7.1"
-  },
-  "devDependencies": {
-    "@types/pg": "^8.11.11"
-  }
-}
